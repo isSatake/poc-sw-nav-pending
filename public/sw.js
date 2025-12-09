@@ -29,7 +29,11 @@ async function navigateWithLog(event) {
 
     try {
         // ★ This is the "fetch(event.request) that sometimes doesn't complete"
-        const res = await fetch(req);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort("pending"), 5000);
+
+        const res = await fetch(req, { signal: controller.signal });
+        clearTimeout(timeoutId);
 
         const end = performance.now();
         console.log("[SW] navigate fetch resolved", {
