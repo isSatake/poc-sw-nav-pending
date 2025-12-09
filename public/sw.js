@@ -28,7 +28,7 @@ async function navigateWithLog(event) {
     });
 
     try {
-        // ★ This is the "fetch(event.request) that sometimes doesn't complete"
+        // ★ stuck here
         const res = await fetch(req);
 
         const end = performance.now();
